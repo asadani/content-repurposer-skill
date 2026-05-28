@@ -40,7 +40,7 @@ Choose ONE pattern from `references/hook-formulas.md` that fits the topic. Do no
 - **One idea per post.** Resist listing 5 takeaways.
 - **Scannable spacing.** Short paragraphs (1-3 lines), single blank lines between. No paragraph longer than 4 lines on mobile.
 - **No more than 3 hashtags**, and only if they are topically meaningful (`#AIAgents` is fine; `#TechLife` is not).
-- **No emoji bullets.** A single tasteful emoji as a section marker is acceptable but never required.
+- **Emoji:** follow the Emoji Control section in `shared/voice-rules.md`. Default level is `low` — most LinkedIn posts should have zero emoji. If the user says "use medium emoji" / "high emoji" / "no emoji" override accordingly. Per the per-format ceiling: even at `medium`, no emoji as bullet leads.
 - **Closer:** crisp takeaway OR one genuine open question. Never engagement-bait ("What do you think?", "Drop a comment", "Hit follow").
 
 **Length targets:**
@@ -54,9 +54,17 @@ Choose ONE pattern from `references/hook-formulas.md` that fits the topic. Do no
 2. Confirm character count matches the requested length tier.
 3. Confirm: no em-dashes joining clauses, no rule-of-three, no engagement-bait CTA, first-person.
 
-## Step 7 — Deliver
+## Step 7 — Save and deliver
 
-Output in this exact shape:
+**Save to file.** Derive a kebab-case topic slug from the user's topic (e.g., "Why agentic systems fail in production" → `agentic-systems-prod-failures`). Get today's date in `YYYY-MM-DD` form. Save the post body to:
+
+```
+./drafts/<YYYY-MM-DD>-<topic-slug>/linkedin.md
+```
+
+If the file already exists (re-running on the same topic same day), suffix with `-v2`, `-v3`, etc. Create directories as needed.
+
+**Also print in chat** in this shape:
 
 ```
 ─── POST ───
@@ -72,6 +80,8 @@ Output in this exact shape:
 characters: <N>
 hashtags: <list or "none">
 hook pattern used: <e.g., dichotomy / demoting / pragmatic-flex / observation-flip>
+emoji level: <none | low | medium | high>
+saved to: <path>
 ```
 
-Do not post anywhere. Anuj reviews and copies manually.
+Do not post anywhere. The file is for review and manual copy into LinkedIn's compose window.

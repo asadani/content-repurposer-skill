@@ -62,7 +62,7 @@ Apply `shared/topic-modes.md`.
 ## Step 5 — Voice constraints (all modes)
 
 - **First person.** "I" — owned opinions.
-- **No emoji** unless thematically essential. Default to zero.
+- **Emoji:** follow the Emoji Control section in `shared/voice-rules.md`. Default level is `low` — most tweets should have zero emoji. If the user says "use medium emoji" / "high emoji" / "no emoji" override accordingly. Per the per-format ceiling: max 1 emoji per tweet even at `medium`. Never an opening emoji on tweet 1 of a thread.
 - **No hashtags** in modes quote / opinion / wow / thread. In `share` mode, max 1 hashtag, only if it's actually used by a community to find the topic (e.g., `#defcon`).
 - **No `@` mentions** unless the post is directly addressing or crediting a specific person, and you have their actual handle.
 - **No CTA.** Never "RT if...", "Follow for more...", "Like if you agree."
@@ -75,7 +75,17 @@ Apply `shared/topic-modes.md`.
 3. Confirm: no engagement-bait CTA. No "Hot take:" preamble. No "Unpopular opinion:" preamble.
 4. Confirm: thread numbering is consistent if mode is `thread`.
 
-## Step 7 — Deliver
+## Step 7 — Save and deliver
+
+**Save to file.** Derive a kebab-case topic slug from the user's topic. Get today's date in `YYYY-MM-DD` form. Save the tweet (or thread) to:
+
+```
+./drafts/<YYYY-MM-DD>-<topic-slug>/twitter.md
+```
+
+If the file already exists, suffix with `-v2`, `-v3`, etc. Create directories as needed.
+
+**Also print in chat.**
 
 For single-tweet modes (quote / opinion-single / share / wow):
 
@@ -90,6 +100,8 @@ For single-tweet modes (quote / opinion-single / share / wow):
 characters: <N>/280
 mode: <quote | opinion | share | wow>
 topic mode: <security | architecture-agents | leadership | cost-infra>
+emoji level: <none | low | medium | high>
+saved to: <path>
 ```
 
 For thread mode:
@@ -114,6 +126,8 @@ tweets: <N>
 character counts: <comma-separated list>
 mode: thread
 topic mode: <security | architecture-agents | leadership | cost-infra>
+emoji level: <none | low | medium | high>
+saved to: <path>
 ```
 
-Anuj copies to X manually. Do not auto-post.
+The file is for review and manual copy into X. Do not auto-post.

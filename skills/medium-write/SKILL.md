@@ -42,15 +42,25 @@ Apply all rules from the loaded `voice-rules.md`. Cite specifics inline using Me
 
 First person. No em-dash separators. No rule-of-three. No marketing words.
 
+**Emoji:** follow the Emoji Control section in `shared/voice-rules.md`. Default level is `low` — Medium articles should rarely contain emoji. Override only if the user explicitly says so.
+
 ## Step 5 — Pre-delivery checks
 
 1. Run the regex sweep from `shared/pet-peeves.md`. Any hit → rewrite.
 2. Confirm: every claim has either a number, a citation, or an "I've seen this when..." anecdote anchor.
 3. Confirm: structure has H2 sections (not just paragraphs), at least one code block (if technical), and a real closer.
 
-## Step 6 — Deliver
+## Step 6 — Save and deliver
 
-Output Markdown in this shape:
+**Save to file.** Derive a kebab-case topic slug. Get today's date in `YYYY-MM-DD` form. Save the full Markdown article to:
+
+```
+./drafts/<YYYY-MM-DD>-<topic-slug>/medium.md
+```
+
+If the file already exists, suffix with `-v2`, etc. Create directories as needed.
+
+**Also print in chat** the same Markdown content (so the user can copy from chat OR read the file), in this shape:
 
 ```
 # <Title>
@@ -74,6 +84,8 @@ Output Markdown in this shape:
 - word count: <N>
 - reading time: <N> min
 - topic mode: <security | architecture-agents | leadership | cost-infra>
+- emoji level: <none | low | medium | high>
+- saved to: <path>
 ```
 
-Anuj copies into Medium manually. Do not auto-publish.
+User copies into Medium manually. Do not auto-publish.

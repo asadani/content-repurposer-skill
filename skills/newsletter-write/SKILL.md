@@ -37,6 +37,7 @@ Apply `topic-modes.md`.
 - Plain-text readable: do not depend on images, fancy CSS, or block embeds.
 - If you use a list, it's because the content is genuinely enumerable, not for visual rhythm.
 - One number or specific reference at minimum.
+- **Emoji:** follow the Emoji Control section in `shared/voice-rules.md`. Default level is `low` — newsletters should rarely contain emoji. Override only if the user explicitly says "use medium emoji" / "no emoji" etc.
 
 ## Step 5 — Pre-delivery checks
 
@@ -45,9 +46,28 @@ Apply `topic-modes.md`.
 3. Confirm subject + preheader together preview well (no repetition, no clickbait, no emoji unless thematically appropriate).
 4. Confirm the post would still make sense pasted into plain text (no broken Markdown reliance).
 
-## Step 6 — Deliver
+## Step 6 — Save and deliver
 
-Output in this shape:
+**Save to file.** Derive a kebab-case topic slug. Get today's date in `YYYY-MM-DD` form. Save subject + preheader + body to:
+
+```
+./drafts/<YYYY-MM-DD>-<topic-slug>/newsletter.md
+```
+
+Format the file as:
+
+```markdown
+# Subject: <subject line>
+Preheader: <preheader>
+
+---
+
+<body>
+```
+
+If the file already exists, suffix with `-v2`, etc. Create directories as needed.
+
+**Also print in chat:**
 
 ```
 ─── SUBJECT ───
@@ -63,6 +83,8 @@ Output in this shape:
 words: <N>
 reading time: <N> min
 topic mode: <security | architecture-agents | leadership | cost-infra>
+emoji level: <none | low | medium | high>
+saved to: <path>
 ```
 
-Anuj copies to whichever newsletter platform he uses (typically pastes into the compose window). Do not auto-send.
+User copies to whichever newsletter platform they use (typically pastes into the compose window). Do not auto-send.

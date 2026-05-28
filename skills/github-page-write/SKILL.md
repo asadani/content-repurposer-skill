@@ -54,6 +54,8 @@ Voice register: **measured engineer**, still opinionated. Long-form: target 8-12
 
 **Apply all rules from `shared/voice-rules.md` and avoid every pattern in `shared/pet-peeves.md`** (full paths in Step 1). Cite real numbers. First-person. Code over diagrams when technical.
 
+**Emoji:** follow the Emoji Control section in `shared/voice-rules.md`. Default level is `low` — long-form blog posts should rarely contain emoji. Override only if the user explicitly asks.
+
 ## Step 5 — Generate the HTML
 
 Take the chosen template (the raw HTML you fetched), and **replace every `{{PLACEHOLDER}}` token** with real content. Preserve ALL inline CSS and class names exactly as in the template — do not modernize, do not extract to external stylesheets.
@@ -67,13 +69,23 @@ If a section in the template doesn't apply to this post, remove the section enti
 3. Confirm: every quantitative claim has a number or is labeled anecdotal.
 4. Confirm: the HTML is a single complete file with `<!doctype html>`, `<head>` (with `<title>`, font links, inline `<style>`), `<body>` (nav, hero, sections, footer). No external CSS files referenced.
 
-## Step 7 — Deliver
+## Step 7 — Save and deliver
 
-Write the HTML to a local path the user chooses, default `./drafts/<slug>/index.html` (create directory if needed). Print:
+**Save to file.** Get today's date in `YYYY-MM-DD` form. Derive a kebab-case topic slug. Save the complete HTML to:
 
-- The slug.
-- Theme used.
+```
+./drafts/<YYYY-MM-DD>-<topic-slug>/github-page.html
+```
+
+If the file already exists (re-running on the same topic same day), suffix with `-v2`, `-v3`, etc. Create directories as needed.
+
+**Print in chat:**
+
+- The topic slug.
+- Theme used (`warm-light` / `dark-cyberpunk`).
 - Reading-time estimate.
-- One-line instruction: *"To publish: copy `<slug>/` into the asadani.github.io repo root and commit."*
+- The full save path.
+- Emoji level: `<none | low | medium | high>`.
+- One-line instruction: *"To publish: copy `github-page.html` into the asadani.github.io repo as `<blog-slug>/index.html` and commit."*
 
 Do not auto-commit to the blog repo.

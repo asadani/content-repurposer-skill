@@ -60,3 +60,22 @@ See `voice-samples.md` for more.
 ## Words & Phrases I Do Not Use
 
 See `pet-peeves.md` for the full blacklist with regex patterns.
+
+## Emoji Control
+
+**Default = `low`.** Override only when the user explicitly says so for a given run ("use medium emoji" / "no emoji this time" / "high emoji").
+
+| Level    | Behavior                                                                                                              |
+|----------|-----------------------------------------------------------------------------------------------------------------------|
+| `none`   | Zero emoji. Strip any that sneak in via examples, even quoted ones.                                                   |
+| `low`    | Permits one emoji **only if genuinely useful** — e.g., a flag for a country-specific incident, a single section marker that adds clarity. **Low does not guarantee an emoji** — most drafts at this level should have zero. That's the point. |
+| `medium` | 1-2 emoji per piece allowed. May be used as section markers (📌, 🔎, ⚠) if the format permits.                       |
+| `high`   | Generous. Emoji per bullet allowed, header decoration allowed. Rare for technical writing — use only when the topic calls for it. |
+
+**Per-format ceilings** (apply within the chosen level):
+
+- Twitter / X — even at `medium`, max 1 emoji per tweet. Never an opening emoji on tweet 1 of a thread.
+- LinkedIn — even at `medium`, no emoji as bullet leads.
+- Newsletter, Medium, GitHub Pages, Substack — avoid emoji at any level unless the topic literally requires one (e.g., a flag in a regional incident piece).
+
+If the user does not specify a level, default to `low`. If a generated draft would contain zero emoji at the chosen level, that's correct behavior, not a miss.

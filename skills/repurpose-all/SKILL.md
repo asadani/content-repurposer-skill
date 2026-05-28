@@ -37,7 +37,11 @@ Ask the user ONCE:
 
 Wait for the answer. Default to **all** if no response.
 
-## Step 3 — Apply sensible defaults (do NOT ask the user per format)
+## Step 3 — Detect emoji level from invocation
+
+Parse the user's original invocation for an emoji override: "no emoji", "low emoji", "medium emoji", "high emoji". If none specified, default to `low`. Apply the chosen level uniformly across every generated format (each format already honors its per-format ceiling per `shared/voice-rules.md`).
+
+## Step 4 — Apply sensible defaults (do NOT ask the user per format)
 
 The point of this orchestrator is to avoid six rounds of clarifying questions. Apply these defaults silently:
 
@@ -52,7 +56,7 @@ The point of this orchestrator is to avoid six rounds of clarifying questions. A
 
 For github-page, **do not** generate a full HTML file in this orchestrator response. Instead, output a Markdown skeleton: title, dek, numbered section headings with 1-2 paragraphs each, code blocks where they belong. Tell the user that if they want the final HTML, invoke `github-page-write` separately on the same topic and it will produce the styled file.
 
-## Step 4 — Classify topic mode
+## Step 5 — Classify topic mode
 
 Apply `shared/topic-modes.md` once. Use the resulting mode (security / architecture-agents / leadership / cost-infra) consistently across all formats. The mode shifts register per `voice-rules.md`:
 
@@ -61,7 +65,7 @@ Apply `shared/topic-modes.md` once. Use the resulting mode (security / architect
 - Leadership/governance → measured, evidence-first.
 - Cost/infra → pragmatic-flex (specific number + ship outcome).
 
-## Step 5 — Draft each requested format
+## Step 6 — Draft each requested format
 
 For each selected format, apply the rules from its SKILL.md. Reuse the same core argument across formats — DO NOT invent different conclusions for different platforms. The topic's thesis is constant; the structure, length, and register adapt.
 
@@ -74,7 +78,26 @@ For each selected format, apply the rules from its SKILL.md. Reuse the same core
 
 **Pet peeves apply to every format.** Run the regex sweep from `shared/pet-peeves.md` against every draft before delivering.
 
-## Step 6 — Deliver
+## Step 7 — Save all formats into a single drafts directory
+
+Derive a kebab-case topic slug from the user's topic. Get today's date in `YYYY-MM-DD` form. Create the directory:
+
+```
+./drafts/<YYYY-MM-DD>-<topic-slug>/
+```
+
+Save each generated format as its own file in this directory:
+
+- `linkedin.md`
+- `twitter.md`
+- `newsletter.md`
+- `medium.md`
+- `substack.md`
+- `github-page-skeleton.md` (the Markdown skeleton — the styled HTML is produced only when the user invokes `github-page-write` separately)
+
+If the directory already exists (re-running on the same topic same day), suffix the directory with `-v2`, `-v3`, etc.
+
+## Step 8 — Deliver
 
 Deliver one consolidated response with each format under its own delimiter. Use this exact structure:
 
@@ -83,6 +106,8 @@ Deliver one consolidated response with each format under its own delimiter. Use 
 TOPIC: <one-line topic restatement>
 TOPIC MODE: <security | architecture-agents | leadership | cost-infra>
 FORMATS: <list>
+EMOJI LEVEL: <none | low | medium | high>
+SAVED TO: ./drafts/<YYYY-MM-DD>-<topic-slug>/
 ═══════════════════════════════════════
 
 ─── LINKEDIN ─────────────────────────
@@ -154,7 +179,7 @@ DONE. <one-line note on what the user should review most carefully — e.g., "Gi
 
 Skip any format the user didn't select. Keep the delimiter blocks for the ones included.
 
-## Step 7 — One pre-delivery check
+## Step 9 — One pre-delivery check
 
 Confirm all of these in one pass before sending the response:
 
@@ -162,5 +187,7 @@ Confirm all of these in one pass before sending the response:
 - Pet peeves regex sweep passes for every draft.
 - First-person throughout, no engagement-bait, no em-dash sentence joiners.
 - The Topic Mode is consistent.
+- Emoji level applied consistently across formats (and per-format ceilings respected).
+- Every file in the drafts directory was written.
 
 Anuj reviews and copies to each platform manually. Do not auto-post anywhere.

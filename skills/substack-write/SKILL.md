@@ -35,6 +35,8 @@ Apply `topic-modes.md`.
 
 Tone: closer to LinkedIn-sharp than Medium-measured. Owned opinions. First person. Email-first: assume the reader is scanning in their inbox.
 
+**Emoji:** follow the Emoji Control section in `shared/voice-rules.md`. Default level is `low`. Override only if the user explicitly asks.
+
 - Optional pull-quote (Markdown blockquote `> ...`) once per post for emphasis.
 - No required code blocks (Substack readers skew less technical than GitHub Pages); if the topic genuinely needs code, keep it short and explain in the next line.
 - No images required.
@@ -46,9 +48,28 @@ Tone: closer to LinkedIn-sharp than Medium-measured. Owned opinions. First perso
 3. Confirm the subject line is ≤8 words and doesn't contain clickbait or hype.
 4. Confirm closer is not engagement-bait.
 
-## Step 6 — Deliver
+## Step 6 — Save and deliver
 
-Output in this shape:
+**Save to file.** Derive a kebab-case topic slug. Get today's date in `YYYY-MM-DD` form. Save subject + dek + body to:
+
+```
+./drafts/<YYYY-MM-DD>-<topic-slug>/substack.md
+```
+
+Format the file as:
+
+```markdown
+# Subject: <subject line>
+Dek: <dek>
+
+---
+
+<body in Markdown>
+```
+
+If the file already exists, suffix with `-v2`, etc. Create directories as needed.
+
+**Also print in chat:**
 
 ```
 ─── SUBJECT ───
@@ -64,6 +85,8 @@ Output in this shape:
 words: <N>
 reading time: <N> min
 topic mode: <security | architecture-agents | leadership | cost-infra>
+emoji level: <none | low | medium | high>
+saved to: <path>
 ```
 
-Anuj copies to Substack manually.
+User copies to Substack manually.

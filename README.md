@@ -85,7 +85,40 @@ Use repurpose-all on this topic: why most teams ship agentic systems that pass e
 
 The orchestrator asks once which formats you want (default: all six), then drafts every selected format in one response — using sensible defaults so you aren't interrupted with per-format questions. For `github-page-write` it produces a Markdown skeleton; run `github-page-write` separately on the same topic when you want the styled HTML file.
 
-**Nothing is auto-posted or auto-committed in either workflow.**
+**Nothing is auto-posted or auto-committed in any workflow.**
+
+### Where drafts are saved
+
+Every skill writes its output to a per-topic directory under `./drafts/` (in addition to printing in the chat). Path convention:
+
+```
+./drafts/<YYYY-MM-DD>-<topic-slug>/
+  linkedin.md
+  twitter.md
+  newsletter.md
+  medium.md
+  substack.md
+  github-page.html                   # only when github-page-write runs
+  github-page-skeleton.md            # only when repurpose-all runs
+```
+
+Re-running the same topic on the same day suffixes with `-v2`, `-v3` so older drafts are preserved. `drafts/` is in `.gitignore` — it never gets committed to the plugin repo.
+
+**Push-readiness:**
+- LinkedIn, Twitter, Newsletter, Medium, Substack → copy from the `.md` file into the platform's compose window.
+- GitHub Pages → copy `github-page.html` as `<your-blog-slug>/index.html` into your blog repo and commit. The HTML is self-contained (inline CSS, no external assets).
+
+### Emoji control
+
+Default emoji level is **`low`** — most drafts contain zero emoji. To change for a single invocation, just say so:
+
+```
+Use linkedin-write — topic: ai shrinkflation — use medium emoji
+Use twitter-write — topic: contextual retrieval — no emoji
+repurpose-all — topic: agent failures in production — high emoji
+```
+
+Levels: `none` (zero, ever), `low` (one if genuinely useful), `medium` (1-2 per piece, may serve as section markers), `high` (per-bullet decoration). Each format has its own ceiling — see `shared/voice-rules.md`. Twitter caps at 1 emoji per tweet even at `medium`; LinkedIn never uses emoji as bullet leads.
 
 ## Example
 
