@@ -1,20 +1,22 @@
 # content-repurposer-skill
 
-A Claude Code plugin for drafting technical writing across five formats from a single topic — **in your voice**, not generic LLM marketing voice.
+A Claude Code plugin for drafting technical writing across six formats from a single topic — **in your voice**, not generic LLM marketing voice. Plus an orchestrator that produces all formats in one pass.
 
-Given a topic, one skill drafts for one format. Pick the format you want; the skill loads a shared voice profile, classifies the topic, and writes. The default voice profile in this repo is calibrated to Anuj Sadani ([asadani.github.io](https://asadani.github.io/)) — a Principal SDE writing about AI engineering, security, and engineering leadership. The interesting part isn't his voice; it's the **mechanism** for capturing yours. See [Make This Yours](#make-this-yours).
+Given a topic, one skill drafts for one format. Pick the format you want; the skill loads a shared voice profile, classifies the topic, and writes. Or invoke `repurpose-all` to get every format at once. The default voice profile in this repo is calibrated to Anuj Sadani ([asadani.github.io](https://asadani.github.io/)) — a Principal SDE writing about AI engineering, security, and engineering leadership. The interesting part isn't his voice; it's the **mechanism** for capturing yours. See [Make This Yours](#make-this-yours).
 
 ## What you get
 
-Five skills, one shared voice profile, no marketing fluff:
+Six format skills, one orchestrator, one shared voice profile, no marketing fluff:
 
 | Skill                 | Format                                                  | Length        | Register                       |
 |-----------------------|---------------------------------------------------------|---------------|--------------------------------|
 | `linkedin-write`      | LinkedIn post (asks length intent per run)              | 500-2400 ch   | Sharp / contrarian             |
+| `twitter-write`       | Tweet or thread on X (asks mode: quote/opinion/share/wow/thread) | ≤280 ch or 3-7 tweets | Sharpest / most compressed     |
 | `substack-write`      | Substack post                                           | 600-1200 w    | Sharp / contrarian             |
 | `newsletter-write`    | Newsletter issue (subject + preheader + body)           | 300-600 w     | Between sharp and measured     |
 | `medium-write`        | Medium article                                          | 1500-3000 w   | Measured engineer              |
 | `github-page-write`   | Hand-rolled HTML post for a static blog (two themes)    | 1800-2800 w   | Measured engineer, long-form   |
+| `repurpose-all`       | **Orchestrator** — one topic, drafts across every format you select, in one pass | varies | Adapts per format              |
 
 ## Why this differs from other writing skills
 
@@ -28,13 +30,13 @@ I stripped the wrapping.
 
 **What this does that others don't:**
 
-- **Five formats, one voice.** LinkedIn, Newsletter, GitHub Pages, Medium, Substack all read from the same `shared/voice-rules.md`. Edit one file, every skill picks up the change.
+- **Six formats, one voice.** LinkedIn, Twitter/X, Newsletter, GitHub Pages, Medium, Substack all read from the same `shared/voice-rules.md`. Edit one file, every skill picks up the change.
 - **Your voice is a file, not a slider.** No tone presets. The unit of truth is `shared/voice-samples.md`, populated with your real openings verbatim. The model pattern-matches against them.
 - **Pet peeves enforced with regex.** A blacklist runs against every draft before delivery: em-dashes as sentence joiners, rule-of-three triplets, marketing words like "unlock" or "supercharge", engagement-bait closers like "drop a comment". Hits get regenerated, not shipped.
 - **No marketing surface area.** No profile optimizer. No engagement analytics. No "best time to post" calculator. No viral-post database of other people's content. If it doesn't help you write better in your own voice, it isn't in here.
 - **Built to fork.** The four voice files in `shared/` are example data, not prescription. `Make This Yours` is its own section in this README.
 
-What you give up: this won't help you go viral. It will help you sound like yourself across five formats without writing five times.
+What you give up: this won't help you go viral. It will help you sound like yourself across six formats without writing six times.
 
 ## Install
 
@@ -46,30 +48,44 @@ cd content-repurposer-skill
 ./install.sh
 ```
 
-The script symlinks the five skills into `~/.claude/skills/`. Pass a path as the first argument to override: `./install.sh /custom/skills/dir`. **Restart your Claude Code session** to pick them up.
+The script symlinks the seven skills into `~/.claude/skills/`. Pass a path as the first argument to override: `./install.sh /custom/skills/dir`. **Restart your Claude Code session** to pick them up.
 
 If you prefer manual install:
 
 ```bash
 mkdir -p ~/.claude/skills
-for s in linkedin-write newsletter-write github-page-write medium-write substack-write; do
+for s in linkedin-write twitter-write newsletter-write github-page-write medium-write substack-write repurpose-all; do
   ln -sfn "$(pwd)/skills/$s" ~/.claude/skills/$s
 done
 ```
 
 ## Use
 
-After restarting your session, invoke any skill by name. Examples:
+After restarting your session, invoke any skill by name.
+
+**Single-format invocations:**
 
 ```
 Use linkedin-write to draft a post about why agentic systems fail in production despite passing benchmarks.
+
+Use twitter-write — topic: AI shrinkflation in frontier models.
 
 Use github-page-write for a write-up on the recent litellm supply chain attack.
 
 medium-write — topic: contextual retrieval is a chunk-level upgrade, not a retrieval strategy.
 ```
 
-The skill will ask any clarifying questions (length, theme, etc.) before drafting. Output is delivered as text or a file. **Nothing is auto-posted or auto-committed.**
+Each single-format skill asks any clarifying questions (length, mode, theme) before drafting.
+
+**Repurpose across formats in one pass:**
+
+```
+Use repurpose-all on this topic: why most teams ship agentic systems that pass evals but fail in production.
+```
+
+The orchestrator asks once which formats you want (default: all six), then drafts every selected format in one response — using sensible defaults so you aren't interrupted with per-format questions. For `github-page-write` it produces a Markdown skeleton; run `github-page-write` separately on the same topic when you want the styled HTML file.
+
+**Nothing is auto-posted or auto-committed in either workflow.**
 
 ## Example
 
@@ -209,10 +225,11 @@ The repo includes `.claude-plugin/plugin.json` for compatibility with Claude Cod
 
 ## What's deliberately NOT in here
 
-- **Auto-publish integrations.** No LinkedIn API, no Substack API, no Publora. The skill drafts; you review and post manually. This is intentional — content posted on autopilot is content nobody reads twice.
+- **Auto-publish integrations.** No LinkedIn API, no Substack API, no Twitter API, no Publora. The skill drafts; you review and post manually. This is intentional — content posted on autopilot is content nobody reads twice.
 - **Self-reference / backlink suggestions.** No "as I argued in my previous post" auto-injection.
-- **A one-button "fan to all 5 formats" orchestrator.** Each format gets its own attention. Cross-posting the same thing to all five is almost always the wrong call.
 - **LinkedIn-marketing tooling** (profile optimizer, thread monitor, engager analytics, employee advocacy programs). Those belong in a different tool aimed at marketers.
+
+A note on `repurpose-all`: the orchestrator exists but is **not** the default workflow. Each format usually deserves its own attention, and cross-posting the same thing to all six is often the wrong call. Use the orchestrator when a topic is genuinely worth multiple platforms; use single-format skills the rest of the time.
 
 If you want any of these, fork and add them.
 

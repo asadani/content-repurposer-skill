@@ -6,7 +6,7 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SKILLS=(linkedin-write newsletter-write github-page-write medium-write substack-write)
+SKILLS=(linkedin-write twitter-write newsletter-write github-page-write medium-write substack-write repurpose-all)
 
 TARGET="${1:-${HOME}/.claude/skills}"
 
