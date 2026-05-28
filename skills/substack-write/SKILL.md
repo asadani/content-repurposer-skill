@@ -1,0 +1,69 @@
+---
+name: substack-write
+description: Write a Substack post in Anuj's voice — sharp/contrarian edge, 600-1200 words, email-first cadence, subject line and dek, no engagement-bait. Outputs Markdown ready to paste into Substack.
+---
+
+# substack-write
+
+Drafting a Substack post for Anuj Sadani. Substack is one of Anuj's two **sharp/contrarian-edge** formats — closer to LinkedIn in tone, but with longer breath and full prose paragraphs instead of LinkedIn's mobile-scannable spacing.
+
+## Step 1 — Load context (mandatory)
+
+Read these files:
+
+1. `shared/voice-rules.md`
+2. `shared/voice-samples.md`
+3. `shared/pet-peeves.md`
+4. `shared/topic-modes.md`
+
+## Step 2 — Classify topic mode
+
+Apply `topic-modes.md`.
+
+## Step 3 — Plan the structure
+
+**Default outline (600-1200 words, 4-6 min read):**
+
+1. **Subject line** — what shows up in the inbox. Punchy, specific, ≤8 words. Echoes the hook of the post body.
+2. **Dek** — 1 sentence under the subject. Sets up the tension.
+3. **Opening** — a hook line in one of the cadences from `voice-samples.md` (dichotomy, demoting, pragmatic-flex, observation-flip).
+4. **3-5 short sections** — each is 2-4 paragraphs. Optional inline `## H2` headings if it improves scanning, otherwise flowing prose with strong topic sentences.
+5. **One concrete example or number per section.**
+6. **Closer** — 2-3 lines. Crisp takeaway OR one genuine open question. Never engagement-bait.
+
+## Step 4 — Draft
+
+Tone: closer to LinkedIn-sharp than Medium-measured. Owned opinions. First person. Email-first: assume the reader is scanning in their inbox.
+
+- Optional pull-quote (Markdown blockquote `> ...`) once per post for emphasis.
+- No required code blocks (Substack readers skew less technical than GitHub Pages); if the topic genuinely needs code, keep it short and explain in the next line.
+- No images required.
+
+## Step 5 — Pre-delivery checks
+
+1. Run the regex sweep from `shared/pet-peeves.md`. Any hit → rewrite.
+2. Confirm word count is in the 600-1200 range.
+3. Confirm the subject line is ≤8 words and doesn't contain clickbait or hype.
+4. Confirm closer is not engagement-bait.
+
+## Step 6 — Deliver
+
+Output in this shape:
+
+```
+─── SUBJECT ───
+<subject line, ≤8 words>
+
+─── DEK ───
+<one sentence>
+
+─── POST ───
+<body in Markdown>
+
+─── META ───
+words: <N>
+reading time: <N> min
+topic mode: <security | architecture-agents | leadership | cost-infra>
+```
+
+Anuj copies to Substack manually.

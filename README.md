@@ -1,0 +1,140 @@
+# content-repurposer-skill
+
+A Claude Code plugin for drafting technical writing across five formats from a single topic — **in your voice**, not generic LLM marketing voice.
+
+Given a topic, one skill drafts for one format. Pick the format you want; the skill loads a shared voice profile, classifies the topic, and writes. The default voice profile in this repo is calibrated to Anuj Sadani ([asadani.github.io](https://asadani.github.io/)) — a Principal SDE writing about AI engineering, security, and engineering leadership. The interesting part isn't his voice; it's the **mechanism** for capturing yours. See [Make This Yours](#make-this-yours).
+
+## What you get
+
+Five skills, one shared voice profile, no marketing fluff:
+
+| Skill                 | Format                                                  | Length        | Register                       |
+|-----------------------|---------------------------------------------------------|---------------|--------------------------------|
+| `linkedin-write`      | LinkedIn post (asks length intent per run)              | 500-2400 ch   | Sharp / contrarian             |
+| `substack-write`      | Substack post                                           | 600-1200 w    | Sharp / contrarian             |
+| `newsletter-write`    | Newsletter issue (subject + preheader + body)           | 300-600 w     | Between sharp and measured     |
+| `medium-write`        | Medium article                                          | 1500-3000 w   | Measured engineer              |
+| `github-page-write`   | Hand-rolled HTML post for a static blog (two themes)    | 1800-2800 w   | Measured engineer, long-form   |
+
+## Install
+
+Clone wherever you keep your tools:
+
+```bash
+git clone https://github.com/asadani/content-repurposer-skill.git
+cd content-repurposer-skill
+./install.sh
+```
+
+The script detects whether you use `~/.claude/skills/` (standard) or `~/.claude-personal/skills/` (alternate config) and symlinks the five skills there. **Restart your Claude Code session** to pick them up.
+
+If you prefer manual install:
+
+```bash
+SKILLS_DIR="${HOME}/.claude/skills"   # or ${HOME}/.claude-personal/skills
+mkdir -p "$SKILLS_DIR"
+for s in linkedin-write newsletter-write github-page-write medium-write substack-write; do
+  ln -sfn "$(pwd)/skills/$s" "$SKILLS_DIR/$s"
+done
+```
+
+## Use
+
+After restarting your session, invoke any skill by name. Examples:
+
+```
+Use linkedin-write to draft a post about why agentic systems fail in production despite passing benchmarks.
+
+Use github-page-write for a write-up on the recent litellm supply chain attack.
+
+medium-write — topic: contextual retrieval is a chunk-level upgrade, not a retrieval strategy.
+```
+
+The skill will ask any clarifying questions (length, theme, etc.) before drafting. Output is delivered as text or a file. **Nothing is auto-posted or auto-committed.**
+
+## How it works
+
+Each skill loads four shared files on every run:
+
+| File                       | Purpose                                                                 |
+|----------------------------|-------------------------------------------------------------------------|
+| `shared/voice-rules.md`    | Voice register, per-format dial, encouraged patterns, identity context  |
+| `shared/voice-samples.md`  | Verbatim openings/closings from real posts — calibration anchors        |
+| `shared/pet-peeves.md`     | Hard blacklist (forced engagement, em-dashes, marketing hype) + regex   |
+| `shared/topic-modes.md`    | Topic → mode map (security / agents / leadership / cost-infra)          |
+
+Each skill's `SKILL.md` is short and points at these shared files. Tweak the shared files and every skill picks up the change immediately — no per-skill duplication.
+
+The `shared/` directory is symlinked into each skill folder (`skills/<name>/shared/`) so SKILL.md can reference it with single-level relative paths — portable across forks and install locations.
+
+## Make This Yours
+
+This is the part worth reading. The mechanism here is generic; the voice profile in `shared/` is just one example. To use this plugin in your own voice:
+
+### Step 1 — Replace `shared/voice-rules.md`
+
+This is the single most important file. Replace its content with your own:
+
+- Your identity (role, years of experience, what you're known for).
+- Your default register (do you write contrarian-sharp, measured, story-driven, dry-technical?).
+- Per-format tone dial (some formats sharper than others?).
+- Topic-to-mode adjustments (a security write-up vs a leadership essay should sound different — define how).
+- Closer style preferences.
+- Words and phrases YOU use (look at your last 10 posts — what recurs?).
+
+### Step 2 — Populate `shared/voice-samples.md` with your real writing
+
+Paste **4-6 verbatim openings** from your own published posts. Maybe 2-3 closings as well. These are calibration anchors. The model will pattern-match against them.
+
+Do NOT paste your full posts — just the cadence-bearing fragments. The shape, not the substance.
+
+### Step 3 — Edit `shared/pet-peeves.md`
+
+The defaults here (em-dashes, rule-of-three, marketing hype) are good universal bans for AI-flavored prose. Add your own personal pet peeves. Remove anything you DO want to use.
+
+Update the regex sweep at the bottom to match. The skills run that regex against every draft before delivering.
+
+### Step 4 — Adjust `shared/topic-modes.md`
+
+If you write about different topics than the default (security / agents / leadership / cost-infra), rename and re-bucket the modes. Each mode has triggers, a voice register, structural defaults, and example posts.
+
+### Step 5 — Update each SKILL.md description and the README
+
+The frontmatter `description:` in each `skills/<name>/SKILL.md` still mentions "Anuj's voice." Change to yours. Same for this README (or fork it and rewrite).
+
+### Step 6 — Update `github-page-write` for your own site
+
+This skill is hardcoded to fetch templates from `asadani/asadani.github.io` (a hand-rolled HTML site with two themes). If your blog is different:
+
+- **Jekyll/Hugo/MkDocs etc.:** rewrite this skill's SKILL.md to output your site's preferred format (Markdown with frontmatter, typically). Drop the live-fetch step.
+- **Your own hand-rolled site:** change the `gh api repos/asadani/asadani.github.io/...` calls to point at your repo and your template paths.
+- **No blog:** delete this skill entirely.
+
+### Step 7 — Reinstall
+
+If you cloned and ran `install.sh`, just restart your Claude Code session. The skills are symlinked, so edits to `shared/` and `skills/*/` propagate immediately.
+
+If you forked and want to publish your version, push to your own GitHub.
+
+## Plugin manifest
+
+The repo includes `.claude-plugin/plugin.json` for compatibility with Claude Code's plugin marketplace system. The simpler symlink-into-skills-dir install (above) bypasses the marketplace and works without registering the plugin anywhere.
+
+## What's deliberately NOT in here
+
+- **Auto-publish integrations.** No LinkedIn API, no Substack API, no Publora. The skill drafts; you review and post manually. This is intentional — content posted on autopilot is content nobody reads twice.
+- **Self-reference / backlink suggestions.** No "as I argued in my previous post" auto-injection.
+- **A one-button "fan to all 5 formats" orchestrator.** Each format gets its own attention. Cross-posting the same thing to all five is almost always the wrong call.
+- **LinkedIn-marketing tooling** (profile optimizer, thread monitor, engager analytics, employee advocacy programs). Those belong in a different tool aimed at marketers.
+
+If you want any of these, fork and add them.
+
+## License
+
+Apache 2.0. See [LICENSE](./LICENSE).
+
+The `shared/voice-rules.md`, `shared/voice-samples.md`, and `shared/topic-modes.md` files in this repo encode Anuj Sadani's voice profile and are provided as an example. If you publish a fork, please replace these with your own voice before publishing or distributing.
+
+## Credits
+
+Built by [Anuj Sadani](https://asadani.github.io/). The mechanism distills lessons from a handful of LinkedIn-writer skills floating around in the Claude Code ecosystem — voice-rule structure, draft-then-approve flow — with the marketing-influencer surface area stripped off.
