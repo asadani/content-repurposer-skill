@@ -1,26 +1,14 @@
 #!/usr/bin/env bash
 # Install the content-repurposer skills into your Claude Code skills directory.
-# Detects ~/.claude/skills/ (standard) vs ~/.claude-personal/skills/ (alternate).
-# Pass an explicit target dir as $1 to override detection.
+# Default target: ~/.claude/skills/
+# Pass an explicit target dir as $1 to override (e.g. ./install.sh ~/my/skills).
 
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SKILLS=(linkedin-write newsletter-write github-page-write medium-write substack-write)
 
-detect_skills_dir() {
-  if [[ -n "${1:-}" ]]; then
-    echo "$1"
-    return
-  fi
-  if [[ -d "${HOME}/.claude-personal" ]]; then
-    echo "${HOME}/.claude-personal/skills"
-    return
-  fi
-  echo "${HOME}/.claude/skills"
-}
-
-TARGET="$(detect_skills_dir "${1:-}")"
+TARGET="${1:-${HOME}/.claude/skills}"
 
 echo "Repo:    ${REPO_ROOT}"
 echo "Target:  ${TARGET}"

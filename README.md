@@ -16,6 +16,26 @@ Five skills, one shared voice profile, no marketing fluff:
 | `medium-write`        | Medium article                                          | 1500-3000 w   | Measured engineer              |
 | `github-page-write`   | Hand-rolled HTML post for a static blog (two themes)    | 1800-2800 w   | Measured engineer, long-form   |
 
+## Why this differs from other writing skills
+
+Most LinkedIn writing skills are built for marketers.
+
+This one is built for engineers who write.
+
+Marketing-shaped skills come with the whole funnel attached: a viral-post database to copy from, profile optimizers, engagement analytics, employee advocacy modules, follower-graph segmentation. The substance is buried under wrapping.
+
+I stripped the wrapping.
+
+**What this does that others don't:**
+
+- **Five formats, one voice.** LinkedIn, Newsletter, GitHub Pages, Medium, Substack all read from the same `shared/voice-rules.md`. Edit one file, every skill picks up the change.
+- **Your voice is a file, not a slider.** No tone presets. The unit of truth is `shared/voice-samples.md`, populated with your real openings verbatim. The model pattern-matches against them.
+- **Pet peeves enforced with regex.** A blacklist runs against every draft before delivery: em-dashes as sentence joiners, rule-of-three triplets, marketing words like "unlock" or "supercharge", engagement-bait closers like "drop a comment". Hits get regenerated, not shipped.
+- **No marketing surface area.** No profile optimizer. No engagement analytics. No "best time to post" calculator. No viral-post database of other people's content. If it doesn't help you write better in your own voice, it isn't in here.
+- **Built to fork.** The four voice files in `shared/` are example data, not prescription. `Make This Yours` is its own section in this README.
+
+What you give up: this won't help you go viral. It will help you sound like yourself across five formats without writing five times.
+
 ## Install
 
 Clone wherever you keep your tools:
@@ -26,15 +46,14 @@ cd content-repurposer-skill
 ./install.sh
 ```
 
-The script detects whether you use `~/.claude/skills/` (standard) or `~/.claude-personal/skills/` (alternate config) and symlinks the five skills there. **Restart your Claude Code session** to pick them up.
+The script symlinks the five skills into `~/.claude/skills/`. Pass a path as the first argument to override: `./install.sh /custom/skills/dir`. **Restart your Claude Code session** to pick them up.
 
 If you prefer manual install:
 
 ```bash
-SKILLS_DIR="${HOME}/.claude/skills"   # or ${HOME}/.claude-personal/skills
-mkdir -p "$SKILLS_DIR"
+mkdir -p ~/.claude/skills
 for s in linkedin-write newsletter-write github-page-write medium-write substack-write; do
-  ln -sfn "$(pwd)/skills/$s" "$SKILLS_DIR/$s"
+  ln -sfn "$(pwd)/skills/$s" ~/.claude/skills/$s
 done
 ```
 
