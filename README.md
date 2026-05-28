@@ -2,14 +2,14 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache_2.0-blue?style=flat-square)](LICENSE) [![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.com/claude-code) ![Status](https://img.shields.io/badge/status-active-success?style=flat-square)
 
-**Formats supported:**
+**Drafts for:**
 
-![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)
-![X](https://img.shields.io/badge/X-000000?style=flat-square&logo=x&logoColor=white)
-![Substack](https://img.shields.io/badge/Substack-FF6719?style=flat-square&logo=substack&logoColor=white)
-![Medium](https://img.shields.io/badge/Medium-12100E?style=flat-square&logo=medium&logoColor=white)
-![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-181717?style=flat-square&logo=github&logoColor=white)
-![Newsletter](https://img.shields.io/badge/Newsletter-2C2D72?style=flat-square&logo=minutemailer&logoColor=white)
+![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)
+![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)
+![Substack](https://img.shields.io/badge/Substack-FF6719?style=for-the-badge&logo=substack&logoColor=white)
+![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)
+![GitHub%20Pages](https://img.shields.io/badge/GitHub%20Pages-181717?style=for-the-badge&logo=github&logoColor=white)
+![Newsletter](https://img.shields.io/badge/Newsletter-2C2D72?style=for-the-badge&logo=minutemailer&logoColor=white)
 
 A Claude Code plugin for drafting technical writing across six formats from a single topic — **in your voice**, not generic LLM marketing voice. Plus an orchestrator that produces all formats in one pass.
 
