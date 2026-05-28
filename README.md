@@ -52,6 +52,74 @@ medium-write — topic: contextual retrieval is a chunk-level upgrade, not a ret
 
 The skill will ask any clarifying questions (length, theme, etc.) before drafting. Output is delivered as text or a file. **Nothing is auto-posted or auto-committed.**
 
+## Example
+
+Here is what `linkedin-write` produces on a representative topic, using the default voice profile shipped in `shared/`.
+
+**You:**
+
+> Use linkedin-write to draft a post about why agentic systems pass evals but fail in production.
+
+**Skill (asks once):**
+
+> Length? **short** (<500 chars, single observation+implication), **medium** (~1300 chars, hook+2-3 paras+payoff), or **long** (~2000+ chars, mini-essay)?
+
+**You:**
+
+> medium
+
+**Skill returns:**
+
+```
+─── POST ───
+Evals measure what you remembered to test. Production measures what you forgot.
+
+I've watched three agentic systems this year ship with 90%+ eval scores
+and fail roughly half of the cases their first-week users threw at them.
+The systems weren't broken. The evals were.
+
+What the evals didn't catch:
+- users who paste 8KB of unstructured email and expect a structured answer
+- tool calls that succeed but return a shape the agent doesn't know how to consume
+- retries that pile context and shift the model's behavior at turn 7
+  in ways turn 1 never sees
+
+You can't out-eval this. You can't generate adversarial sets that resemble
+what real users do, because real users don't behave adversarially. They
+behave indifferently. Most prod failures aren't attacks. They're inputs
+nobody on the team thought to fabricate.
+
+What I'd do instead: assign one engineer per week to read 50 real
+production traces. No tooling. No dashboard. Just read them. The patterns
+you'll find are not patterns your eval generator will produce.
+
+The eval suite tells you what passes. The traces tell you what failed
+before you knew to test for it.
+
+─── ALTERNATE HOOK 1 ───
+Same agent. 95% eval pass. 40% production fail. The systems aren't broken.
+The evals are.
+
+─── ALTERNATE HOOK 2 ───
+Three agentic systems shipped this year with green dashboards and red
+user feedback. The dashboards weren't lying. They were just measuring
+the wrong thing.
+
+─── META ───
+characters: 1247
+hashtags: none
+hook pattern used: dichotomy
+```
+
+A few things this demonstrates about how the skill behaves:
+
+- **First person, owned opinion.** "I've watched...", "What I'd do instead..." — never "we should" or "engineers must."
+- **Real numbers.** "90%+ eval scores," "three agentic systems this year," "50 real production traces" — not "significantly worse" or "much faster."
+- **No engagement-bait closer.** Ends with a callback to the opening dichotomy, not "What do you think?"
+- **No em-dash sentence joiners, no rule-of-three triplets, no marketing words.** The regex sweep in `shared/pet-peeves.md` runs against every draft before delivery.
+
+For a sense of what `github-page-write` produces, look at any post on [asadani.github.io](https://asadani.github.io/) — for example, [Moral Surrender](https://asadani.github.io/moral-surrender/) (warm-light theme, leadership topic) or [litellm supply chain attack](https://asadani.github.io/litellm-supply-chain-attack/) (dark-cyberpunk theme, security topic).
+
 ## How it works
 
 Each skill loads four shared files on every run:
