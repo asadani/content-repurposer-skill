@@ -1,5 +1,16 @@
 # content-repurposer-skill
 
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache_2.0-blue?style=flat-square)](LICENSE) [![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=flat-square&logo=anthropic&logoColor=white)](https://claude.com/claude-code) ![Status](https://img.shields.io/badge/status-active-success?style=flat-square)
+
+**Formats supported:**
+
+![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)
+![X](https://img.shields.io/badge/X-000000?style=flat-square&logo=x&logoColor=white)
+![Substack](https://img.shields.io/badge/Substack-FF6719?style=flat-square&logo=substack&logoColor=white)
+![Medium](https://img.shields.io/badge/Medium-12100E?style=flat-square&logo=medium&logoColor=white)
+![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-181717?style=flat-square&logo=github&logoColor=white)
+![Newsletter](https://img.shields.io/badge/Newsletter-2C2D72?style=flat-square&logo=minutemailer&logoColor=white)
+
 A Claude Code plugin for drafting technical writing across six formats from a single topic — **in your voice**, not generic LLM marketing voice. Plus an orchestrator that produces all formats in one pass.
 
 Given a topic, one skill drafts for one format. Pick the format you want; the skill loads a shared voice profile, classifies the topic, and writes. Or invoke `repurpose-all` to get every format at once. The default voice profile in this repo is calibrated to Anuj Sadani ([asadani.github.io](https://asadani.github.io/)) — a Principal SDE writing about AI engineering, security, and engineering leadership. The interesting part isn't his voice; it's the **mechanism** for capturing yours. See [Make This Yours](#make-this-yours).
@@ -190,11 +201,38 @@ For a sense of what `github-page-write` produces, look at any post on [asadani.g
 
 ## How it works
 
-Each skill loads four shared files on every run:
+```mermaid
+flowchart LR
+    T([Topic]) --> S{Pick skill}
+    S -->|one format| Single[linkedin-write<br/>twitter-write<br/>newsletter-write<br/>medium-write<br/>substack-write<br/>github-page-write]
+    S -->|all formats| Orch[repurpose-all]
+
+    Voice[("shared/<br/><b>voice-rules</b><br/><b>voice-samples</b><br/><b>pet-peeves</b><br/><b>topic-modes</b>")]
+
+    Single <--> Voice
+    Orch <--> Voice
+
+    Single --> Draft[Draft + regex sweep<br/>pet-peeves]
+    Orch --> Draft
+
+    Draft --> Chat[Chat output<br/>post + alt hooks + meta]
+    Draft --> Files[("drafts/<br/>YYYY-MM-DD-slug/<br/>linkedin.md · twitter.md<br/>newsletter.md · medium.md<br/>substack.md · github-page.html")]
+
+    Files -. manual copy .-> Platforms([LinkedIn · X · Substack<br/>Medium · Newsletter · Blog])
+
+    classDef voice fill:#FDF1EB,stroke:#C85C2D,stroke-width:2px,color:#1A1714
+    classDef files fill:#FAF8F5,stroke:#DDD9D0,color:#1A1714
+    classDef platform fill:#EAF1FA,stroke:#2563A8,color:#1A1714
+    class Voice voice
+    class Files files
+    class Platforms platform
+```
+
+**The four shared files (the unit of truth):**
 
 | File                       | Purpose                                                                 |
 |----------------------------|-------------------------------------------------------------------------|
-| `shared/voice-rules.md`    | Voice register, per-format dial, encouraged patterns, identity context  |
+| `shared/voice-rules.md`    | Voice register, per-format dial, emoji control, encouraged patterns, identity context |
 | `shared/voice-samples.md`  | Verbatim openings/closings from real posts — calibration anchors        |
 | `shared/pet-peeves.md`     | Hard blacklist (forced engagement, em-dashes, marketing hype) + regex   |
 | `shared/topic-modes.md`    | Topic → mode map (security / agents / leadership / cost-infra)          |
