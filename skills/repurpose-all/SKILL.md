@@ -15,19 +15,20 @@ Read the shared voice files ONCE:
 2. `shared/voice-samples.md`
 3. `shared/pet-peeves.md`
 4. `shared/topic-modes.md`
+5. `shared/platform-styles.md`
 
 Then read each format's SKILL.md to load its rules and delivery shape:
 
-5. `../linkedin-write/SKILL.md`
-6. `../twitter-write/SKILL.md`
-7. `../newsletter-write/SKILL.md`
-8. `../github-page-write/SKILL.md`
-9. `../medium-write/SKILL.md`
-10. `../substack-write/SKILL.md`
+6. `../linkedin-write/SKILL.md`
+7. `../twitter-write/SKILL.md`
+8. `../newsletter-write/SKILL.md`
+9. `../github-page-write/SKILL.md`
+10. `../medium-write/SKILL.md`
+11. `../substack-write/SKILL.md`
 
 Also load the LinkedIn hook formulas:
 
-11. `../linkedin-write/references/hook-formulas.md`
+12. `../linkedin-write/references/hook-formulas.md`
 
 ## Step 2 — Ask format selection (one question only)
 
@@ -70,6 +71,7 @@ Apply `shared/topic-modes.md` once. Use the resulting mode (security / architect
 For each selected format, apply the rules from its SKILL.md. Reuse the same core argument across formats — DO NOT invent different conclusions for different platforms. The topic's thesis is constant; the structure, length, and register adapt.
 
 **Adaptation principles:**
+- **Apply each platform's row from `shared/platform-styles.md`.** The thesis is constant, but technical depth, headline aggressiveness, and density visibly differ across the six outputs. A reader seeing the X post and the GitHub page side by side should feel they were written for different rooms: X atomic and shallow, GitHub deep and dense, Medium a curiosity-gap title over honest prose. Respect the precedence rules in that file.
 - **Same hook family** across LinkedIn / Twitter (opinion mode) / Substack — they can share a hook line or close variants.
 - **Twitter quote / wow** are reductions of the core observation. Twitter thread is the LinkedIn-medium post compressed into 4-6 numbered tweets.
 - **Newsletter** is the LinkedIn-medium argument with a subject line and slightly more breath.
@@ -187,6 +189,7 @@ Confirm all of these in one pass before sending the response:
 - Pet peeves regex sweep passes for every draft.
 - First-person throughout, no engagement-bait, no em-dash sentence joiners.
 - The Topic Mode is consistent.
+- Each format applied its `platform-styles.md` row — depth, headline, and density visibly differ across formats (subject to topic-mode overrides), and no headline produced engagement-bait.
 - Emoji level applied consistently across formats (and per-format ceilings respected).
 - Every file in the drafts directory was written.
 
