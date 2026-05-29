@@ -58,7 +58,7 @@ Every skill saves to `./drafts/<YYYY-MM-DD>-<topic-slug>/<format>.<ext>` **and**
 
 ## `github-page-write` runtime fetch
 
-This skill fetches HTML templates and the design system from `asadani/asadani.github.io` live via `gh api` at invocation time (not bundled in this repo). If forking the plugin for a different blog, rewrite this skill to either point at a different repo or to emit Markdown with frontmatter for Jekyll/Hugo/etc. — see the "Make This Yours" → "Step 6" section in README.md.
+This skill fetches HTML templates and the design system from `asadani/asadani.github.io` live via `gh api` at invocation time (not bundled in this repo). If forking the plugin for a different blog, rewrite this skill to either point at a different repo or to emit Markdown with frontmatter for Jekyll/Hugo/etc. — see the "Make This Yours" → "Step 7" section in README.md.
 
 ## Voice profile is example data, not prescription
 
