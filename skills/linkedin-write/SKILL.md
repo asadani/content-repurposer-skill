@@ -15,7 +15,8 @@ Read these files:
 2. `shared/voice-samples.md`
 3. `shared/pet-peeves.md`
 4. `shared/topic-modes.md`
-5. `references/hook-formulas.md`
+5. `shared/platform-styles.md`
+6. `references/hook-formulas.md`
 
 ## Step 2 — Ask length intent
 
@@ -25,9 +26,11 @@ Ask the user ONCE:
 
 Wait for the answer. Default to medium if no response.
 
-## Step 3 — Classify topic mode
+## Step 3 — Classify topic mode + apply platform style profile
 
 Apply `topic-modes.md`. If security → forensic voice. If architecture/agent → sharp technical opinion. If leadership/governance → measured but still owned.
+
+Then apply the **linkedin** row from `shared/platform-styles.md`: technical depth 2 (concept over code, at most one config line), headline aggressiveness 4 (scroll-stopping first line, never engagement-bait), density 2 (white space, short paragraphs). Honor the precedence rules in that file — `voice-rules.md`/`pet-peeves.md` are absolute, topic mode can raise (never lower) substance, and the style profile sets the per-platform baseline within those.
 
 ## Step 4 — Pick a hook pattern
 
@@ -53,6 +56,7 @@ Choose ONE pattern from `references/hook-formulas.md` that fits the topic. Do no
 1. Run the regex sweep from `shared/pet-peeves.md`. Any hit → rewrite.
 2. Confirm character count matches the requested length tier.
 3. Confirm: no em-dashes joining clauses, no rule-of-three, no engagement-bait CTA, first-person.
+4. Confirm: style profile applied — depth, headline, and density match the linkedin row in `shared/platform-styles.md` (topic-mode overrides may raise depth).
 
 ## Step 7 — Save and deliver
 
