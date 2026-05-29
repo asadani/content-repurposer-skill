@@ -15,6 +15,7 @@ Read these files. Do not skip.
 2. `shared/voice-samples.md`
 3. `shared/pet-peeves.md`
 4. `shared/topic-modes.md`
+5. `shared/platform-styles.md`
 
 Then fetch the **live source-of-truth** from Anuj's blog repo via the `gh` CLI (always current, never bundled):
 
@@ -39,6 +40,8 @@ From the topic, propose a kebab-case slug (e.g., "Why agentic systems fail in pr
 ## Step 4 — Draft the post
 
 Voice register: **measured engineer**, still opinionated. Long-form: target 8-12 min reading time (~1800-2800 words). Apply `topic-modes.md` to adjust register for the specific topic.
+
+Apply the **github-page** row from `shared/platform-styles.md`: technical depth 5 (full code, internals, tables — the reader may run the code and arrived deliberately), headline aggressiveness 2 (plain, accurate, SEO-clear title — not a curiosity-gap), density 5 (the canonical, densest version of the argument). Honor the precedence rules in that file — `voice-rules.md`/`pet-peeves.md` are absolute, and topic mode can raise (never lower) substance.
 
 **Structure (mirrors "Moral Surrender" / "Contextual retrieval, honestly"):**
 
@@ -68,6 +71,7 @@ If a section in the template doesn't apply to this post, remove the section enti
 2. Confirm: no `—` (em-dash) joining clauses; no rule-of-three; first-person throughout.
 3. Confirm: every quantitative claim has a number or is labeled anecdotal.
 4. Confirm: the HTML is a single complete file with `<!doctype html>`, `<head>` (with `<title>`, font links, inline `<style>`), `<body>` (nav, hero, sections, footer). No external CSS files referenced.
+5. Confirm: style profile applied — depth 5 (full code/tables), a plain accurate title (not a curiosity-gap), and the densest long-form version, per the github-page row in `shared/platform-styles.md`.
 
 ## Step 7 — Save and deliver
 
