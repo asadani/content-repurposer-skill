@@ -32,7 +32,7 @@ Then apply the **medium** row from `shared/platform-styles.md`: technical depth 
 3. **Opening** — a hook line that follows the cadence of Anuj's openings (see `voice-samples.md`), then a paragraph that names the question the article answers.
 4. **5-8 `## H2` sections.** Each section: a tight argument + at least one piece of evidence (number, citation, code snippet, or named system behavior).
 5. **At least one code/config block** if the topic is technical.
-6. **One inline comparison table** if there's a dichotomy or trade-off matrix.
+6. **Comparison content without an HTML table.** Medium has no table element — a pasted `<table>` collapses into continuous text. If there's a dichotomy or trade-off matrix, render it as either (a) a fenced code block containing an aligned monospace/ASCII table (Medium keeps code blocks and their alignment), or (b) a labeled list (bold key + value per line). Never an HTML/Markdown table for the Medium output.
 7. **Closer section** — title it something like "What I'd Take Away" or "The Short Version" — a 3-5 line distillation. Crisp takeaway, OR a callback to the opening line.
 
 ## Step 4 — Draft
@@ -74,6 +74,7 @@ Derive a kebab-case topic slug. Get today's date in `YYYY-MM-DD` form. Save **tw
 - fenced code blocks → `<pre><code>…</code></pre>`
 - inline `` `code` `` → `<code>`
 - images → `<img src="…" alt="…">`
+- **comparison/matrix → NOT `<table>`.** Medium has no table element, so a pasted `<table>` collapses into a run-on line of text. Render it as a `<pre><code>` block holding an aligned monospace/ASCII table (survives as a Medium code block), or as a `<ul>` of `<strong>key</strong>: value` lines. Do not emit any `<table>` in `medium.html`.
 
 A small optional `<style>` for legibility while previewing in the browser is fine, but it is decorative only.
 
@@ -98,7 +99,7 @@ A small optional `<style>` for legibility while previewing in the browser is fin
 1. Open `medium.html` in a browser.
 2. Select all (Cmd/Ctrl+A) and copy.
 3. Paste into Medium's story editor — headings, bold/italic, links, blockquotes, and lists carry over.
-4. Check these manually (Medium's known gaps): code blocks usually land as one Medium code block — verify; **inline code has no Medium equivalent** and becomes plain/bold/quoted text — fix by hand; re-insert any images/embeds; delete any stray blank line Medium adds after the title.
+4. Check these manually (Medium's known gaps): code blocks usually land as one Medium code block — verify; **inline code has no Medium equivalent** and becomes plain/bold/quoted text — fix by hand; **Medium has no tables** — any comparison should already be a code block or list, not a table; re-insert any images/embeds; delete any stray blank line Medium adds after the title.
 
 **Meta**
 - word count: <N>
