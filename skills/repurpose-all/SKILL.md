@@ -93,7 +93,7 @@ Save each generated format as its own file in this directory:
 - `linkedin.md`
 - `twitter.md`
 - `newsletter.md`
-- `medium.md`
+- `medium.md` (Markdown only here; Medium does not parse Markdown, so the paste-ready `medium.html` is produced only when the user invokes `medium-write` separately)
 - `substack.md`
 - `github-page-skeleton.md` (the Markdown skeleton — the styled HTML is produced only when the user invokes `github-page-write` separately)
 

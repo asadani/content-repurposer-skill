@@ -1,6 +1,6 @@
 ---
 name: medium-write
-description: Write a Medium article in Anuj's voice — measured engineer register, opinionated but evidence-first, 1500-3000 words, ## H2 sections, inline citations. Outputs Markdown ready to paste into Medium.
+description: Write a Medium article in Anuj's voice — measured engineer register, opinionated but evidence-first, 1500-3000 words, ## H2 sections, inline citations. Outputs both Markdown and paste-ready semantic HTML (Medium does not parse Markdown).
 ---
 
 # medium-write
@@ -56,15 +56,28 @@ First person. No em-dash separators. No rule-of-three. No marketing words.
 
 ## Step 6 — Save and deliver
 
-**Save to file.** Derive a kebab-case topic slug. Get today's date in `YYYY-MM-DD` form. Save the full Markdown article to:
+Derive a kebab-case topic slug. Get today's date in `YYYY-MM-DD` form. Save **two files** to `./drafts/<YYYY-MM-DD>-<topic-slug>/` (suffix with `-v2`, etc. if they exist; create directories as needed):
 
-```
-./drafts/<YYYY-MM-DD>-<topic-slug>/medium.md
-```
+1. **`medium.md`** — the full Markdown article (for anyone using a markdown-to-medium browser extension, or for archiving).
+2. **`medium.html`** — the same article rendered to **semantic HTML**, which is what actually pastes into Medium.
 
-If the file already exists, suffix with `-v2`, etc. Create directories as needed.
+**Why both:** Medium's editor does not parse Markdown. Pasting raw `.md` leaves literal `##` and backtick characters. Medium *does* preserve structure when you paste the **rendered** view of an HTML page, so `medium.html` is the one to paste from.
 
-**Also print in chat** the same Markdown content (so the user can copy from chat OR read the file), in this shape:
+**How to build `medium.html`:** convert the same article to clean, semantic HTML. A complete minimal document — `<!doctype html>`, `<head>` with `<title>` and `<meta charset="utf-8">`, `<body>` — so it opens in a browser. Medium strips CSS on paste, so **do not rely on styling**; only the semantic tags carry over. Map:
+
+- Title → `<h1>`, dek → a `<p><em>…</em></p>` directly under it
+- `## H2` → `<h2>`
+- paragraphs → `<p>`; `**bold**` → `<strong>`; `*italic*` → `<em>`
+- `[text](url)` → `<a href="url">text</a>`
+- `> quote` → `<blockquote>`
+- lists → `<ul>`/`<ol>` + `<li>`
+- fenced code blocks → `<pre><code>…</code></pre>`
+- inline `` `code` `` → `<code>`
+- images → `<img src="…" alt="…">`
+
+A small optional `<style>` for legibility while previewing in the browser is fine, but it is decorative only.
+
+**Print in chat:** the Markdown version (so the user can read/copy from chat), then the delivery block below.
 
 ```
 # <Title>
@@ -76,20 +89,23 @@ If the file already exists, suffix with `-v2`, etc. Create directories as needed
 ## <H2 1>
 ...
 
-## <H2 N>
-...
-
 ## The Short Version
 ...
 
 ---
+
+**To paste into Medium:**
+1. Open `medium.html` in a browser.
+2. Select all (Cmd/Ctrl+A) and copy.
+3. Paste into Medium's story editor — headings, bold/italic, links, blockquotes, and lists carry over.
+4. Check these manually (Medium's known gaps): code blocks usually land as one Medium code block — verify; **inline code has no Medium equivalent** and becomes plain/bold/quoted text — fix by hand; re-insert any images/embeds; delete any stray blank line Medium adds after the title.
 
 **Meta**
 - word count: <N>
 - reading time: <N> min
 - topic mode: <security | architecture-agents | leadership | cost-infra>
 - emoji level: <none | low | medium | high>
-- saved to: <path>
+- saved to: <dir> (medium.md + medium.html)
 ```
 
 User copies into Medium manually. Do not auto-publish.
