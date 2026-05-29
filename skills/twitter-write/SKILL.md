@@ -15,6 +15,7 @@ Read these files:
 2. `shared/voice-samples.md`
 3. `shared/pet-peeves.md`
 4. `shared/topic-modes.md`
+5. `shared/platform-styles.md`
 
 ## Step 2 — Ask mode
 
@@ -24,9 +25,11 @@ Ask the user ONCE:
 
 Wait for the answer. Default to **opinion** if no response.
 
-## Step 3 — Classify topic mode
+## Step 3 — Classify topic mode + apply platform style profile
 
 Apply `shared/topic-modes.md`.
+
+Then apply the **twitter/x** row from `shared/platform-styles.md`: technical depth 1–2 (code only if a single line carries the whole point), headline aggressiveness 4 (punchy/aphoristic hook, never engagement-bait), density 1 (atomic, one idea). **Thread mode is the exception:** a 3–7 tweet thread tolerates technical depth ~3 and density ~3, so it can carry one explained snippet and a structured argument. Honor the precedence rules in `platform-styles.md` — `voice-rules.md`/`pet-peeves.md` are absolute, and topic mode can raise (never lower) substance (e.g., a CVE still needs its specifics even in a single tweet).
 
 ## Step 4 — Draft by mode
 
@@ -74,6 +77,7 @@ Apply `shared/topic-modes.md`.
 2. Confirm: every tweet is ≤280 characters. Count carefully.
 3. Confirm: no engagement-bait CTA. No "Hot take:" preamble. No "Unpopular opinion:" preamble.
 4. Confirm: thread numbering is consistent if mode is `thread`.
+5. Confirm: style profile applied — depth, headline, and density match the twitter/x row in `shared/platform-styles.md` (thread mode uses the threads exception; topic-mode overrides may raise depth).
 
 ## Step 7 — Save and deliver
 

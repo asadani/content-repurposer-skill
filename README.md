@@ -45,7 +45,7 @@ I stripped the wrapping.
 - **Your voice is a file, not a slider.** No tone presets. The unit of truth is `shared/voice-samples.md`, populated with your real openings verbatim. The model pattern-matches against them.
 - **Pet peeves enforced with regex.** A blacklist runs against every draft before delivery: em-dashes as sentence joiners, rule-of-three triplets, marketing words like "unlock" or "supercharge", engagement-bait closers like "drop a comment". Hits get regenerated, not shipped.
 - **No marketing surface area.** No profile optimizer. No engagement analytics. No "best time to post" calculator. No viral-post database of other people's content. If it doesn't help you write better in your own voice, it isn't in here.
-- **Built to fork.** The four voice files in `shared/` are example data, not prescription. `Make This Yours` is its own section in this README.
+- **Built to fork.** The five files in `shared/` are example data, not prescription. `Make This Yours` is its own section in this README.
 
 What you give up: this won't help you go viral. It will help you sound like yourself across six formats without writing six times.
 
@@ -228,7 +228,7 @@ flowchart LR
     class Platforms platform
 ```
 
-**The four shared files (the unit of truth):**
+**The five shared files (the unit of truth):**
 
 | File                       | Purpose                                                                 |
 |----------------------------|-------------------------------------------------------------------------|
@@ -236,6 +236,7 @@ flowchart LR
 | `shared/voice-samples.md`  | Verbatim openings/closings from real posts — calibration anchors        |
 | `shared/pet-peeves.md`     | Hard blacklist (forced engagement, em-dashes, marketing hype) + regex   |
 | `shared/topic-modes.md`    | Topic → mode map (security / agents / leadership / cost-infra)          |
+| `shared/platform-styles.md`| Per-platform style: audience, technical depth, headline aggressiveness, density + precedence |
 
 Each skill's `SKILL.md` is short and points at these shared files. Tweak the shared files and every skill picks up the change immediately — no per-skill duplication.
 
@@ -272,11 +273,15 @@ Update the regex sweep at the bottom to match. The skills run that regex against
 
 If you write about different topics than the default (security / agents / leadership / cost-infra), rename and re-bucket the modes. Each mode has triggers, a voice register, structural defaults, and example posts.
 
-### Step 5 — Update each SKILL.md description and the README
+### Step 5 — Tune `shared/platform-styles.md`
+
+Voice stays the same across platforms; *style* shifts by audience. Edit the profile table to match where you publish — set technical depth, headline aggressiveness, and density per platform for your audience mix, and rewrite the per-platform notes. Keep the axis scales and precedence rules; the skills depend on that structure.
+
+### Step 6 — Update each SKILL.md description and the README
 
 The frontmatter `description:` in each `skills/<name>/SKILL.md` still mentions "Anuj's voice." Change to yours. Same for this README (or fork it and rewrite).
 
-### Step 6 — Update `github-page-write` for your own site
+### Step 7 — Update `github-page-write` for your own site
 
 This skill is hardcoded to fetch templates from `asadani/asadani.github.io` (a hand-rolled HTML site with two themes). If your blog is different:
 
@@ -284,7 +289,7 @@ This skill is hardcoded to fetch templates from `asadani/asadani.github.io` (a h
 - **Your own hand-rolled site:** change the `gh api repos/asadani/asadani.github.io/...` calls to point at your repo and your template paths.
 - **No blog:** delete this skill entirely.
 
-### Step 7 — Reinstall
+### Step 8 — Reinstall
 
 If you cloned and ran `install.sh`, just restart your Claude Code session. The skills are symlinked, so edits to `shared/` and `skills/*/` propagate immediately.
 

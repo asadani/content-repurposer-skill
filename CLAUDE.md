@@ -29,7 +29,7 @@ When adding any new skill, **you must create this symlink** or path resolution b
 ln -sfn ../../shared skills/<new-skill>/shared
 ```
 
-`shared/` holds the four files every skill loads on every invocation:
+`shared/` holds the five files every skill loads on every invocation:
 
 | File                       | What it controls                                                            |
 |----------------------------|-----------------------------------------------------------------------------|
@@ -37,14 +37,15 @@ ln -sfn ../../shared skills/<new-skill>/shared
 | `shared/voice-samples.md`  | Verbatim openings from real posts — calibration anchors, not templates.     |
 | `shared/pet-peeves.md`     | Hard blacklist + regex sweep run against every draft before delivery.       |
 | `shared/topic-modes.md`    | Classifies topic → mode (security / agents / leadership / cost-infra).      |
+| `shared/platform-styles.md`| Per-platform writing-style profile: audience, technical depth, headline aggressiveness, density, plus precedence rules. |
 
-Treat these four as the unit of truth. Voice changes go here, not into individual SKILL.md files.
+Treat these five as the unit of truth. Voice changes go here, not into individual SKILL.md files. Per-platform style (depth/headline/density) lives in `platform-styles.md`, not in individual skills.
 
 ## Adding a new skill — full checklist
 
 1. Create `skills/<name>/SKILL.md` with frontmatter `---\nname: <name>\ndescription: <one-line>\n---`.
 2. Create the shared symlink: `ln -sfn ../../shared skills/<name>/shared`.
-3. Have the skill reference shared files as `shared/voice-rules.md` (NOT absolute, NOT `../../shared/...`).
+3. Have the skill reference shared files as `shared/voice-rules.md` (NOT absolute, NOT `../../shared/...`). Load all five shared files, including `shared/platform-styles.md`, and apply the skill's platform row.
 4. Add a Step "Save and deliver" that writes to `./drafts/<YYYY-MM-DD>-<topic-slug>/<name>.<ext>`. Re-runs suffix with `-v2`, `-v3`. `drafts/` is gitignored.
 5. Add a row to the table in `README.md`'s "What you get" section.
 6. Add the skill name to the array in `install.sh` and to the `skills` list in `.claude-plugin/plugin.json`.
@@ -57,11 +58,11 @@ Every skill saves to `./drafts/<YYYY-MM-DD>-<topic-slug>/<format>.<ext>` **and**
 
 ## `github-page-write` runtime fetch
 
-This skill fetches HTML templates and the design system from `asadani/asadani.github.io` live via `gh api` at invocation time (not bundled in this repo). If forking the plugin for a different blog, rewrite this skill to either point at a different repo or to emit Markdown with frontmatter for Jekyll/Hugo/etc. — see the "Make This Yours" → "Step 6" section in README.md.
+This skill fetches HTML templates and the design system from `asadani/asadani.github.io` live via `gh api` at invocation time (not bundled in this repo). If forking the plugin for a different blog, rewrite this skill to either point at a different repo or to emit Markdown with frontmatter for Jekyll/Hugo/etc. — see the "Make This Yours" → "Step 7" section in README.md.
 
 ## Voice profile is example data, not prescription
 
-The `shared/` files encode Anuj Sadani's voice profile (see README.md and `shared/voice-rules.md` for identity). When forking, replace the content of all four `shared/*.md` files with your own — but keep the structure (header sections, regex sweep at the bottom of `pet-peeves.md`, format-mode mapping in `topic-modes.md`). The structure is what the skills depend on; the content is what makes the voice yours.
+The `shared/` files encode Anuj Sadani's voice profile (see README.md and `shared/voice-rules.md` for identity). When forking, replace the content of all five `shared/*.md` files with your own — but keep the structure (header sections, regex sweep at the bottom of `pet-peeves.md`, format-mode mapping in `topic-modes.md`, the profile table and precedence rules in `platform-styles.md`). The structure is what the skills depend on; the content is what makes the voice yours.
 
 ## What deliberately isn't here
 

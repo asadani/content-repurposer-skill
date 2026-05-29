@@ -15,10 +15,13 @@ Read these files:
 2. `shared/voice-samples.md`
 3. `shared/pet-peeves.md`
 4. `shared/topic-modes.md`
+5. `shared/platform-styles.md`
 
-## Step 2 — Classify topic mode
+## Step 2 — Classify topic mode + apply platform style profile
 
 Apply `topic-modes.md`.
+
+Then apply the **substack** row from `shared/platform-styles.md`: technical depth 3 (one short explained snippet only if the topic needs it), headline aggressiveness 4 (intriguing subject for open-rate, never engagement-bait), density 3 (medium prose, one pull-quote). Honor the precedence rules in that file — `voice-rules.md`/`pet-peeves.md` are absolute, and topic mode can raise (never lower) substance.
 
 ## Step 3 — Plan the structure
 
@@ -47,6 +50,7 @@ Tone: closer to LinkedIn-sharp than Medium-measured. Owned opinions. First perso
 2. Confirm word count is in the 600-1200 range.
 3. Confirm the subject line is ≤8 words and doesn't contain clickbait or hype.
 4. Confirm closer is not engagement-bait.
+5. Confirm: style profile applied — depth, headline, and density match the substack row in `shared/platform-styles.md` (topic-mode overrides may raise depth).
 
 ## Step 6 — Save and deliver
 
