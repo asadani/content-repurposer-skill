@@ -15,10 +15,13 @@ Read these files:
 2. `shared/voice-samples.md`
 3. `shared/pet-peeves.md`
 4. `shared/topic-modes.md`
+5. `shared/platform-styles.md`
 
-## Step 2 — Classify topic mode
+## Step 2 — Classify topic mode + apply platform style profile
 
 Apply `topic-modes.md`.
+
+Then apply the **newsletter** row from `shared/platform-styles.md`: technical depth 2–3 (at most one short explained snippet), headline aggressiveness 3 (clear-benefit subject, deliverability-safe — not clickbait), density 2–3 (scannable, short sections). Honor the precedence rules in that file — `voice-rules.md`/`pet-peeves.md` are absolute, and topic mode can raise (never lower) substance.
 
 ## Step 3 — Plan the structure
 
@@ -45,6 +48,7 @@ Apply `topic-modes.md`.
 2. Confirm word count is in the 300-600 range.
 3. Confirm subject + preheader together preview well (no repetition, no clickbait, no emoji unless thematically appropriate).
 4. Confirm the post would still make sense pasted into plain text (no broken Markdown reliance).
+5. Confirm: style profile applied — depth, headline, and density match the newsletter row in `shared/platform-styles.md` (topic-mode overrides may raise depth).
 
 ## Step 6 — Save and deliver
 
