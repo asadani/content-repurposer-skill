@@ -1,11 +1,11 @@
 ---
 name: github-page-write
-description: Write a long-form post for Anuj's hand-rolled blog at asadani.github.io. Outputs a complete topic-slug/index.html using either the warm-light or dark-cyberpunk theme, with inline CSS, ready to commit. Use when Anuj wants to publish on his own site.
+description: Write a long-form post for Anuj's hand-rolled blog at asadani.github.io. Outputs a complete topic-slug/index.html from the single light+dark template (one design, reader toggles light/dark), with inline CSS, ready to commit. Use when Anuj wants to publish on his own site.
 ---
 
 # github-page-write
 
-You are drafting a long-form post for Anuj Sadani's blog at `asadani.github.io` (also `asadani.tech`). The site is hand-rolled HTML — every post lives in `<topic-slug>/index.html` with **fully inline CSS** from one of two themes.
+You are drafting a long-form post for Anuj Sadani's blog at `asadani.github.io` (also `asadani.tech`). The site is hand-rolled HTML — every post lives in `<topic-slug>/index.html` with **fully inline CSS** from a single template that ships both light and dark mode (the reader toggles between them; the design is identical either way).
 
 ## Step 1 — Load context (mandatory, in this order)
 
@@ -21,17 +21,16 @@ Then fetch the **live source-of-truth** from Anuj's blog repo via the `gh` CLI (
 
 ```bash
 gh api repos/asadani/asadani.github.io/contents/CLAUDE.md --jq '.content' | base64 -d
-gh api repos/asadani/asadani.github.io/contents/_template/warm-light.html --jq '.content' | base64 -d
-gh api repos/asadani/asadani.github.io/contents/_template/dark.html --jq '.content' | base64 -d
+gh api repos/asadani/asadani.github.io/contents/_template/article.html --jq '.content' | base64 -d
 ```
 
 If `gh` is not available or the fetch fails, ask the user to provide the template paths or auth.
 
-## Step 2 — Pick theme
+## Step 2 — Theme (nothing to pick)
 
-- **Default:** `warm-light`.
-- **Auto-suggest `dark-cyberpunk`** if the topic matches Security mode triggers (see `topic-modes.md`): vulnerability, CVE, supply chain, RCE, exploit, breach, incident, attacker, compromise.
-- Confirm with the user in one sentence: *"Going with warm-light theme — say 'dark' if you want the cyberpunk theme instead."* Wait for an explicit override or proceed after a short pause if running non-interactively.
+There is **one template** and it ships both light and dark mode — the reader toggles between them with the nav button; the design is identical either way. There is no per-topic theme choice and no separate "security" theme. Do not ask the user which theme to use.
+
+**Keep the theming machinery intact** when filling the template: the inline `<head>` no-flash script, the `.theme-toggle` button in the nav, the end-of-body toggle wiring script, and the `[data-theme="dark"]` CSS block. Colors come only from CSS variables — never hardcode a color that must differ between light and dark.
 
 ## Step 3 — Pick slug
 
@@ -61,7 +60,7 @@ Apply the **github-page** row from `shared/platform-styles.md`: technical depth 
 
 ## Step 5 — Generate the HTML
 
-Take the chosen template (the raw HTML you fetched), and **replace every `{{PLACEHOLDER}}` token** with real content. Preserve ALL inline CSS and class names exactly as in the template — do not modernize, do not extract to external stylesheets.
+Take the template (the raw `article.html` you fetched), and **replace every `{{PLACEHOLDER}}` token** with real content. Preserve ALL inline CSS and class names exactly as in the template — do not modernize, do not extract to external stylesheets.
 
 If a section in the template doesn't apply to this post, remove the section entirely rather than leaving placeholders. If a section is needed that's not in the template, add it using the documented component classes from `CLAUDE.md`.
 
@@ -86,7 +85,6 @@ If the file already exists (re-running on the same topic same day), suffix with 
 **Print in chat:**
 
 - The topic slug.
-- Theme used (`warm-light` / `dark-cyberpunk`).
 - Reading-time estimate.
 - The full save path.
 - Emoji level: `<none | low | medium | high>`.
